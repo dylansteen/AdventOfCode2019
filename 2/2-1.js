@@ -20,3 +20,4 @@ while (pointer < input.length) {
   pointer += 4;
 }
 
+console.log(input[0]);
