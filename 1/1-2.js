@@ -103,6 +103,7 @@ const y = [966];
 
 function calculateRemaining(currentMass) {
   const needed = Math.floor(currentMass/3)-2;
+  if (needed < 0) return 0;
   return currentMass <= 0 ? currentMass : calculateRemaining(needed) + needed;
 }
 
