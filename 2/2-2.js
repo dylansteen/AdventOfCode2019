@@ -7,17 +7,17 @@ for (let i = 0; i < 100; i++) {
     copied[2] = j;
 
     let pointer = 0;
-    while (pointer < input.length) {
-      const opCode = input[pointer];
-      const firstVal = input[input[pointer + 1]];
-      const secondVal = input[input[pointer + 2]];
-      const resultPointer = input[pointer + 3];
+    while (pointer < copied.length) {
+      const opCode = copied[pointer];
+      const firstVal = copied[copied[pointer + 1]];
+      const secondVal = copied[copied[pointer + 2]];
+      const resultPointer = copied[pointer + 3];
       if (opCode === 1) {
         const result = firstVal + secondVal;
-        input[resultPointer] = result;
+        copied[resultPointer] = result;
       } else if (opCode === 2) {
         const result = firstVal * secondVal;
-        input[resultPointer] = result;
+        copied[resultPointer] = result;
       } else if (opCode === 99) {
         break;
       } else {
