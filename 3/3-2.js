@@ -44,8 +44,6 @@ wire2.forEach((currentInstruction) => {
     length--;
   }
 });
-let i=0;
-let j=0;
 
 const collisionSteps = [];
 for (let i = 0; i < wire1Path.length; i++) {
