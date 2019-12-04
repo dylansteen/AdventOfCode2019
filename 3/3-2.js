@@ -17,6 +17,11 @@ const step = (direction, pos) => {
   }
 };
 
+const parse = (position) => {
+  const split = position.split(',');
+  return Math.abs(split[0]) + Math.abs(split[1]);
+}
+
 let position = [0, 0];
 wire1.forEach((currentInstruction) => {
   const direction = currentInstruction.slice(0, 1);
@@ -24,12 +29,12 @@ wire1.forEach((currentInstruction) => {
 
   while (length > 0) {
     position = step(direction, position);
-    if (!contains(position, wire1Path)) {
-      wire1Path.push(position);
-    }
+    wire1Path.push(position);
     length--;
   }
 });
+
+const wire1Map = new Map(wire1Path.map((coord, index) => [`${coord[0]},${coord[1]}`, index]));
 
 let position2 = [0, 0];
 wire2.forEach((currentInstruction) => {
@@ -38,27 +43,23 @@ wire2.forEach((currentInstruction) => {
 
   while (length > 0) {
     position2 = step(direction, position2);
-    if (!contains(position2, wire2Path)) {
-      wire2Path.push(position2);
-    }
+    wire2Path.push(position2);
     length--;
   }
 });
-
+const wire2Map = new Map(wire2Path.map((coord, index) => [`${coord[0]},${coord[1]}`, index]));
 const collisionSteps = [];
-for (let i = 0; i < wire1Path.length; i++) {
-  for (let j = 0; j < wire2Path.length; j++) {
-    const wire1Position = wire1Path[i];
-    const wire2position = wire2Path[j];
-    if (wire1Position[0] === wire2position[0] && wire1Position[1] === wire2position[1]) {
-      collisions.push(wire2position);
-      collisionSteps.push(i+j+2);
-    }
+
+wire1Map.forEach((value, key) => {
+  const wire2Value = wire2Map.get(key);
+  if (wire2Value) {
+    collisions.push(key);
+    collisionSteps.push(value + wire2Value + 2);
   }
-}
+});
 
 const closest = collisions.reduce((current, next) => {
-  if (Math.abs(next[0]) + Math.abs(next[1]) < Math.abs(current[0]) + Math.abs(current[1])) {
+  if (parse(next) < parse(current)) {
     return next;
   }
   return current;
@@ -71,13 +72,8 @@ const shortestWirePath = collisionSteps.reduce((current, next) => {
   return current;
 });
 
-function contains(position, array) {
-  array.some((arrPosition) => {
-    return (position[0] === arrPosition[0] && position[1] === arrPosition[1]);
-  });
-}
 
-console.log('closest pos: ', closest[0], closest[1]) ;
-console.log('closest val: ', Math.abs(closest[0]) + Math.abs(closest[1]));
+console.log('closest pos: ', closest) ;
+console.log('closest val: ', parse(closest));
 
 console.log('closest steps: ', shortestWirePath);
