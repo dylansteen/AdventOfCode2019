@@ -16,11 +16,6 @@ while (pointer < input.length) {
   const firstVal = !param1Mode ? input[pointer + 1] : input[input[pointer + 1]];
   const secondVal = !param2Mode ? input[pointer + 2] : input[input[pointer + 2]];
   const resultPointer = increment === 4 ? input[pointer + 3] : input[pointer + 1];
-  if (secondVal === undefined) {
-    console.log(opCode, increment);
-    console.log(param1Mode, param2Mode);
-    console.log(firstVal, secondVal, resultPointer);
-  }
   if (opCode === 1) {
     const result = firstVal + secondVal;
     input[resultPointer] = result;
@@ -36,6 +31,5 @@ while (pointer < input.length) {
   } else {
     throw new Error('something went terribly wrong', instruction);
   }
-  console.log();
   pointer += increment;
 }
