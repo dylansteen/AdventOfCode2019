@@ -15,25 +15,31 @@ const getIncrement = (opCode) => {
   }
 }
 
+const getMode = (instruction, offSet) => !+(instruction.charAt(instruction.length - offSet)) ? 0 : 1;
+
 while (pointer < input.length) {
   const instruction = input[pointer].toString();
   const opCode = +(instruction.slice(-2));
   const increment = getIncrement(opCode);
-  const param1Mode = !+(instruction.charAt(instruction.length - 3)) ? 0 : 1;
-  const param2Mode = !+(instruction.charAt(instruction.length - 4)) ? 0 : 1;
+  const param1Mode = getMode(instruction, 3);
+  const param2Mode = getMode(instruction, 4);
   const firstVal = param1Mode ? input[pointer + 1] : input[input[pointer + 1]];
   const secondVal = param2Mode ? input[pointer + 2] : input[input[pointer + 2]];
   const resultPointer = increment === 2 ? input[pointer + 1] : input[pointer + 3];
   if (opCode === 1) {
     const result = firstVal + secondVal;
     input[resultPointer] = result;
+
   } else if (opCode === 2) {
     const result = firstVal * secondVal;
     input[resultPointer] = result;
+
   } else if (opCode === 3) {
     input[resultPointer] = firstVal;
+    
   } else if (opCode === 4) {
     console.log(firstVal);
+
   } else if (opCode === 5) {
     const shouldJump = firstVal !== 0;
     if (shouldJump) {
@@ -41,6 +47,7 @@ while (pointer < input.length) {
     } else {
       pointer += 3;
     }
+
   } else if (opCode === 6) {
     const shouldJump = firstVal === 0;
     if (shouldJump) {
@@ -48,12 +55,16 @@ while (pointer < input.length) {
     } else {
       pointer += 3;
     }
+
   } else if (opCode === 7) {
     input[resultPointer] = firstVal < secondVal ? 1 : 0
+
   } else if (opCode === 8) {
     input[resultPointer] = firstVal === secondVal ? 1 : 0
+ 
   } else if (opCode === 99) {
     break;
+
   } else {
     console.error(instruction);
     throw new Error('something went terribly wrong');

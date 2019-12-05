@@ -5,16 +5,17 @@ let pointer = 2;
 
 input[225] = 1;
 
+const getMode = (instruction, offSet) => !+(instruction.charAt(instruction.length - offSet)) ? 0 : 1;
 
 while (pointer < input.length) {
   const instruction = input[pointer].toString();
 
   const opCode = +(instruction.slice(-2));
   const increment = [3, 4].includes(opCode) ? 2 : 4;
-  const param1Mode = !!+(instruction.charAt(instruction.length - 3)) ? 0 : 1;
-  const param2Mode = !!+(instruction.charAt(instruction.length - 4)) ? 0 : 1;
-  const firstVal = !param1Mode ? input[pointer + 1] : input[input[pointer + 1]];
-  const secondVal = !param2Mode ? input[pointer + 2] : input[input[pointer + 2]];
+  const param1Mode = getMode(instruction, 3);
+  const param2Mode = getMode(instruction, 4);
+  const firstVal = param1Mode ? input[pointer + 1] : input[input[pointer + 1]];
+  const secondVal = param2Mode ? input[pointer + 2] : input[input[pointer + 2]];
   const resultPointer = increment === 4 ? input[pointer + 3] : input[pointer + 1];
   if (opCode === 1) {
     const result = firstVal + secondVal;
