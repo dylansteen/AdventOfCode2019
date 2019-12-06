@@ -4,11 +4,10 @@ const input = ['FGY)61Z','2BN)LM7','QXY)TVB','5M5)Y6C','2L2)64M','6TT)183','H6P)
 const parse = (orbit) => orbit.split(')');
 let length = 0;
 
-const total = input.forEach(orbit => {
-  let copied = [...input];
+input.forEach(orbit => {
   let [orbitee, orbiter] = parse(orbit);
   while (orbitee !== 'COM') {
-    const next = copied.find(innerOrbit => parse(innerOrbit)[1] === orbitee);
+    const next = input.find(innerOrbit => parse(innerOrbit)[1] === orbitee);
     length++;
     [orbitee, orbiter] = parse(next);
   }
