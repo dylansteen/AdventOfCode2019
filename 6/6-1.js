@@ -12,6 +12,6 @@ input.forEach(orbit => {
     [orbitee, orbiter] = parse(next);
   }
   length++;
-})
+});
 
 console.log(length);
