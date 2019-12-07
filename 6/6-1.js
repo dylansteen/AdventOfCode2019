@@ -4,12 +4,14 @@ const input = ['FGY)61Z', '2BN)LM7', 'QXY)TVB', '5M5)Y6C', '2L2)64M', '6TT)183',
 const parse = (orbit) => orbit.split(')');
 let length = 0;
 
+const orbitMap = new Map(input.map((orbit) => parse(orbit).reverse()));
+
 input.forEach((orbit) => {
   let [orbitee] = parse(orbit);
   while (orbitee !== 'COM') {
-    const next = input.find((innerOrbit) => parse(innerOrbit)[1] === orbitee);
+    const next = orbitMap.get(orbitee);
     length++;
-    [orbitee] = parse(next);
+    orbitee = next;
   }
   length++;
 });
