@@ -5,21 +5,15 @@ const collisionSteps = [];
 const step = (direction, pos) => {
   if (direction === 'U') {
     return [pos[0], pos[1] + 1];
-  } else if (direction === 'D') {
+  } if (direction === 'D') {
     return [pos[0], pos[1] - 1];
-  } else if (direction === 'L') {
+  } if (direction === 'L') {
     return [pos[0] - 1, pos[1]];
-  } else if (direction === 'R') {
+  } if (direction === 'R') {
     return [pos[0] + 1, pos[1]];
-  } else {
-    throw new Error('something terrible happened');
   }
+  throw new Error('something terrible happened');
 };
-
-const parse = (position) => {
-  const split = position.split(',');
-  return Math.abs(split[0]) + Math.abs(split[1]);
-}
 
 const calculateWireSteps = (wire) => {
   let position = [0, 0];
@@ -35,16 +29,14 @@ const calculateWireSteps = (wire) => {
     }
   });
   return path;
-}
+};
 
-const min = (arr) => {
-  return arr.reduce((current, next) => {
-    if (next < current) {
-      return next;
-    }
-    return current;
-  });
-}
+const min = (arr) => arr.reduce((current, next) => {
+  if (next < current) {
+    return next;
+  }
+  return current;
+});
 
 const wire1Path = new Map(calculateWireSteps(wire1).map((coord, index) => [`${coord[0]},${coord[1]}`, index]));
 const wire2Path = new Map(calculateWireSteps(wire2).map((coord, index) => [`${coord[0]},${coord[1]}`, index]));

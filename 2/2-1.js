@@ -15,7 +15,7 @@ while (pointer < input.length) {
   } else if (opCode === 99) {
     break;
   } else {
-    throw new Error('something went terribly wrong')
+    throw new Error('something went terribly wrong');
   }
   pointer += 4;
 }

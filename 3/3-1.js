@@ -4,15 +4,14 @@ const collisions = [];
 const step = (direction, pos) => {
   if (direction === 'U') {
     return [pos[0], pos[1] + 1];
-  } else if (direction === 'D') {
+  } if (direction === 'D') {
     return [pos[0], pos[1] - 1];
-  } else if (direction === 'L') {
+  } if (direction === 'L') {
     return [pos[0] - 1, pos[1]];
-  } else if (direction === 'R') {
+  } if (direction === 'R') {
     return [pos[0] + 1, pos[1]];
-  } else {
-    throw new Error('something terrible happened');
   }
+  throw new Error('something terrible happened');
 };
 
 const calculateWireSteps = (wire) => {
@@ -29,10 +28,10 @@ const calculateWireSteps = (wire) => {
     }
   });
   return path;
-}
+};
 
-const wire1Path = new Set(calculateWireSteps(wire1).map(coord => `${coord[0]},${coord[1]}`));
-const wire2Path = new Set(calculateWireSteps(wire2).map(coord => `${coord[0]},${coord[1]}`));
+const wire1Path = new Set(calculateWireSteps(wire1).map((coord) => `${coord[0]},${coord[1]}`));
+const wire2Path = new Set(calculateWireSteps(wire2).map((coord) => `${coord[0]},${coord[1]}`));
 
 
 wire2Path.forEach((wire2position) => {
@@ -44,7 +43,7 @@ wire2Path.forEach((wire2position) => {
 const parse = (position) => {
   const split = position.split(',');
   return Math.abs(split[0]) + Math.abs(split[1]);
-}
+};
 
 const closest = collisions.reduce((current, next) => {
   if (parse(next) < parse(current)) {
