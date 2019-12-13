@@ -41,23 +41,24 @@ const directionEquals = (arr1, arr2, direction) => equals(getDirection(arr1, dir
 
 const simulateGravity = (i) => {
 
-    for (let j = 0; j < positions.length; j++) {
-      let innerIncrement = 1;
+  for (let j = 0; j < positions.length; j++) {
+    let innerIncrement = 1;
 
-      while(innerIncrement + j < positions.length) {
-        const firstVal = positions[j][i];
-        const secondVal = positions[j + innerIncrement][i];
+    while(innerIncrement + j < positions.length) {
+      const firstVal = positions[j][i];
+      const secondVal = positions[j + innerIncrement][i];
 
-        if (firstVal < secondVal) {
-          velocities[j][i] = velocities[j][i] + 1;
-          velocities[j + innerIncrement][i] = velocities[j + innerIncrement][i] - 1;
-        } else if (firstVal > secondVal) {
-          velocities[j][i] = velocities[j][i] - 1;
-          velocities[j + innerIncrement][i] = velocities[j + innerIncrement][i] + 1;
-        }
-        innerIncrement++;
+      if (firstVal < secondVal) {
+        velocities[j][i] = velocities[j][i] + 1;
+        velocities[j + innerIncrement][i] = velocities[j + innerIncrement][i] - 1;
+      } else if (firstVal > secondVal) {
+        velocities[j][i] = velocities[j][i] - 1;
+        velocities[j + innerIncrement][i] = velocities[j + innerIncrement][i] + 1;
       }
+      innerIncrement++;
     }
+  }
+  
   simulateMotion(i);
   return directionEquals(originalPositions, positions, i) && directionEquals(originalVelocities, velocities, i);
 };
